@@ -72,6 +72,41 @@ canvas {
     box-shadow: 0 0 20px rgba(123, 47, 247, 0.4);
 }
 
+/* SPLASH SCREEN */
+.splash-info {
+    margin-top: 10px;
+}
+
+.autor-nome {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 1px;
+}
+
+.btn-entrar {
+    display: inline-block;
+    pointer-events: all;
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 40px;
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    transition: 0.3s;
+    box-shadow: 0 4px 20px rgba(0, 198, 255, 0.4);
+}
+
+.btn-entrar:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 6px 30px rgba(0, 198, 255, 0.6);
+}
+
 /* ANIMACOES */
 @keyframes pulseTitle {
     0%, 100% { opacity: 0.8; }

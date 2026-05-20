@@ -3,180 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo Educativo 2.2</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0f2027">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Jogo Educativo</title>
+    <link rel="stylesheet" href="coruja.css">
+    <meta name="theme-color" content="#050510">
 </head>
 
 <body>
+    <canvas id="cosmicCanvas"></canvas>
 
-    <header>
-        <small>CRIADO POR FELIPE SOUZA DE MELO</small>
-        <h1>🎮 Jogo Educativo</h1>
+    <div class="ui-overlay">
+        <h1 class="titulo">🎮 Jogo Educativo</h1>
+        <p class="subtitulo">Toque na tela para interagir com a coruja</p>
 
-        <div id="loginArea">
-            <button id="btnGoogle" onclick="loginGoogle()">Entrar com Google</button>
-            <span id="userInfo"></span>
+        <div class="splash-info">
+            <p class="autor-nome">Criado por Felipe Souza de Melo</p>
         </div>
 
-        <div class="topo">
-            <span>⭐ <b id="xp">0</b></span>
-            <span>🪙 <b id="moedas">0</b></span>
-            <span>❤️ <b id="vidas">3</b></span>
-        </div>
-    </header>
+        <a href="jogo.html" class="btn-entrar">► Entrar no Jogo</a>
+    </div>
 
-    <main>
-        <!-- INICIO -->
-        <section id="inicio" class="aba ativa">
-            <div class="banner">
-                <div class="banner-chars">
-                    <span class="char">👩‍🚀</span>
-                    <span class="char">👧🏽</span>
-                    <span class="char">👦🏻</span>
-                </div>
-                <h2>APRENDA BRINCANDO</h2>
-                <div class="banner-items">
-                    <span>🎮</span>
-                    <span>👕</span>
-                </div>
-            </div>
-
-            <button class="btn-jogar" onclick="trocarAba('portugues')">► Jogar agora</button>
-
-            <div class="card card-link" onclick="window.location.href='coruja.html'">
-                <span class="card-icon">🦉</span>
-                <div>
-                    <b>Coruja Cósmica</b>
-                    <p>Veja a animação mágica</p>
-                </div>
-            </div>
-
-            <div class="niveis">
-                <h3>Escolha o nível:</h3>
-                <div class="nivel-btns">
-                    <button onclick="mudarDificuldade('pre')" class="nivel-btn">👶 Pré</button>
-                    <button onclick="mudarDificuldade('facil')" class="nivel-btn">🟢 Fácil</button>
-                    <button onclick="mudarDificuldade('medio')" class="nivel-btn">🟡 Médio</button>
-                    <button onclick="mudarDificuldade('dificil')" class="nivel-btn">🔴 Difícil</button>
-                </div>
-                <p id="nivelAtual"></p>
-            </div>
-        </section>
-
-        <!-- JOGAR (PORTUGUÊS) -->
-        <section id="portugues" class="aba">
-            <div class="card">
-                <div id="emoji" class="emoji-grande">🐱</div>
-                <input id="resposta" placeholder="Digite a palavra" autocomplete="off">
-                <button onclick="verificarPT()">Responder</button>
-                <p id="feedback" class="feedback"></p>
-            </div>
-        </section>
-
-        <!-- INGLÊS -->
-        <section id="ingles" class="aba">
-            <div class="card">
-                <div id="emojiEN" class="emoji-grande">🐱</div>
-                <h3 id="palavraEN">CAT</h3>
-                <input id="respostaEN" placeholder="Traduza para português" autocomplete="off">
-                <button onclick="verificarEN()">Responder</button>
-                <p id="feedbackEN" class="feedback"></p>
-            </div>
-        </section>
-
-        <!-- MONTAR -->
-        <section id="montar" class="aba">
-            <div class="card">
-                <h2>✍️ Monte a palavra 🔤</h2>
-                <p>Monte corretamente a palavra usando as letras:</p>
-                <div id="emojiMontar" class="emoji-grande">🐱</div>
-                <div id="letras" class="letras"></div>
-                <div id="respostaMontada" class="resposta-montada"></div>
-                <div class="montar-btns">
-                    <button onclick="verificarMontagem()">Verificar</button>
-                    <button onclick="limpar()" class="btn-secondary">Limpar</button>
-                </div>
-                <p id="feedbackMontar" class="feedback"></p>
-            </div>
-        </section>
-
-        <!-- LOJA -->
-        <section id="loja" class="aba">
-            <div class="card">
-                <h2>🛒 Loja</h2>
-                <p>Gaste suas moedas para comprar itens!</p>
-                <div id="itensLoja" class="loja-grid"></div>
-            </div>
-        </section>
-
-        <!-- AVATAR -->
-        <section id="avatar" class="aba">
-            <div class="card">
-                <h2>👤 Avatar</h2>
-                <p>Crie seu visual</p>
-                <div class="avatar-preview" id="avatarPreview">🧑</div>
-                <div id="avatarOptions" class="avatar-grid"></div>
-            </div>
-        </section>
-
-        <!-- PERFIL -->
-        <section id="perfil" class="aba">
-            <div class="card">
-                <h2>👤 Seu Perfil</h2>
-                <input id="nomeJogador" placeholder="Digite seu nome">
-                <button onclick="salvarNome()">Salvar</button>
-                <p id="nomeSalvo"></p>
-
-                <div class="perfil-stats">
-                    <div><b id="perfilXP">0</b><br>XP Total</div>
-                    <div><b id="perfilNivel">1</b><br>Nível</div>
-                    <div><b id="perfilMoedas">0</b><br>Moedas</div>
-                </div>
-
-                <button onclick="resetarProgresso()" class="btn-danger">🔄 Resetar Progresso</button>
-
-                <h3 style="margin-top: 20px;">🏆 Ranking</h3>
-                <ul id="listaRanking"></ul>
-            </div>
-        </section>
-    </main>
-
-    <!-- BOTTOM NAV -->
-    <nav class="bottom-nav">
-        <button onclick="trocarAba('inicio')" data-tab="inicio" class="nav-active">
-            <span>🏠</span>
-            <small>Início</small>
-        </button>
-        <button onclick="trocarAba('portugues')" data-tab="portugues">
-            <span>🎮</span>
-            <small>Jogar</small>
-        </button>
-        <button onclick="trocarAba('loja')" data-tab="loja">
-            <span>🛒</span>
-            <small>Loja</small>
-        </button>
-        <button onclick="trocarAba('avatar')" data-tab="avatar">
-            <span>👤</span>
-            <small>Avatar</small>
-        </button>
-        <button onclick="trocarAba('perfil')" data-tab="perfil">
-            <span>🏆</span>
-            <small>Perfil</small>
-        </button>
-    </nav>
-
-    <audio id="somAcerto" src="https://www.soundjay.com/buttons/sounds/button-4.mp3" preload="auto"></audio>
-    <audio id="somErro" src="https://www.soundjay.com/buttons/sounds/button-10.mp3" preload="auto"></audio>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-
-    <script src="script.js"></script>
+    <script src="coruja.js"></script>
 </body>
 
 </html>
