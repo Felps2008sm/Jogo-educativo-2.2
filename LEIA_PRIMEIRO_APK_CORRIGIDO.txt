@@ -1,0 +1,25 @@
+APK corrigido por ChatGPT
+
+O que foi corrigido:
+1. Corrigi a dependência errada do Firebase:
+   ERRADO: com.google.firebase:firebase-realtime-database
+   CERTO:  com.google.firebase:firebase-database
+
+2. Desativei o configuration cache do Gradle, porque ele estava gerando erro no seu log.
+3. Copiei os arquivos atuais do jogo para www e para android/app/src/main/assets/public.
+4. Removi arquivos antigos de build/cache e vários scripts/guias duplicados que confundiam.
+5. Criei o script GERAR_APK_CORRIGIDO.bat.
+
+Como gerar o APK:
+1. Extraia esta pasta no Desktop.
+2. Abra a pasta felipe-melhorado.
+3. Clique duas vezes em GERAR_APK_CORRIGIDO.bat.
+
+Ou pelo PowerShell:
+cd "C:\Users\Users\Desktop\felipe-melhorado-corrigido\felipe-melhorado"
+.\GERAR_APK_CORRIGIDO.bat
+
+O APK final aparecerá em:
+android\app\build\outputs\apk\debug\app-debug.apk
+
+Use primeiro o app-debug.apk para testar no celular.
