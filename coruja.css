@@ -1,0 +1,84 @@
+/* =============================
+   CORUJA COSMICA - STYLES
+   ============================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: #050510;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
+}
+
+canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* UI OVERLAY */
+.ui-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    text-align: center;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.titulo {
+    font-size: 24px;
+    color: #fff;
+    text-shadow: 0 0 20px #7b2ff7, 0 0 40px #7b2ff7;
+    letter-spacing: 3px;
+    animation: pulseTitle 3s ease-in-out infinite;
+}
+
+.subtitulo {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 5px;
+    animation: fadeInOut 4s ease-in-out infinite;
+}
+
+.btn-voltar {
+    display: inline-block;
+    pointer-events: all;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 30px;
+    background: rgba(123, 47, 247, 0.3);
+    color: #c8a0ff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 14px;
+    border: 1px solid rgba(123, 47, 247, 0.5);
+    transition: 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.btn-voltar:hover {
+    background: rgba(123, 47, 247, 0.6);
+    color: white;
+    box-shadow: 0 0 20px rgba(123, 47, 247, 0.4);
+}
+
+/* ANIMACOES */
+@keyframes pulseTitle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; text-shadow: 0 0 30px #7b2ff7, 0 0 60px #00c6ff; }
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "Jogo Educativo 2.2",
+    "short_name": "Jogo Edu",
+    "description": "Aprenda brincando com palavras e emojis!",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#0f2027",
+    "theme_color": "#0f2027",
+    "orientation": "portrait",
+    "icons": []
+}
