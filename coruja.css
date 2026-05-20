@@ -48,30 +48,6 @@ canvas {
     animation: fadeInOut 4s ease-in-out infinite;
 }
 
-.btn-voltar {
-    display: inline-block;
-    pointer-events: all;
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 12px 30px;
-    background: rgba(123, 47, 247, 0.3);
-    color: #c8a0ff;
-    text-decoration: none;
-    border-radius: 25px;
-    font-size: 14px;
-    border: 1px solid rgba(123, 47, 247, 0.5);
-    transition: 0.3s;
-    backdrop-filter: blur(5px);
-}
-
-.btn-voltar:hover {
-    background: rgba(123, 47, 247, 0.6);
-    color: white;
-    box-shadow: 0 0 20px rgba(123, 47, 247, 0.4);
-}
-
 /* SPLASH SCREEN */
 .splash-info {
     margin-top: 10px;

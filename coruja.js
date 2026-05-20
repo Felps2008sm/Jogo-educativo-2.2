@@ -79,21 +79,17 @@ function drawOwlBody() {
 
     var baseGlow = 0.5 + glowIntensity * 0.5;
 
-    // Body outline - flowing neon curves
     ctx.strokeStyle = "rgba(123, 47, 247," + (0.6 * baseGlow) + ")";
     ctx.lineWidth = 2 * scale;
     ctx.shadowColor = "#7b2ff7";
     ctx.shadowBlur = 15 * scale * baseGlow;
 
-    // Main body shape
     ctx.beginPath();
     for (var i = 0; i <= 360; i += 2) {
         var angle = (i * Math.PI) / 180;
         var r = 100 * scale;
 
-        // Owl shape: wider at top (head), narrower at bottom
         var bodyMod = 1 + 0.3 * Math.cos(angle * 2) - 0.15 * Math.cos(angle);
-        // Ear tufts
         var earL = Math.max(0, Math.cos(angle - 0.7) * Math.sin(angle - 0.7));
         var earR = Math.max(0, Math.cos(angle + 0.7) * Math.sin(angle + 0.7));
         var ears = (earL + earR) * 30 * scale;
@@ -134,7 +130,7 @@ function drawOwlBody() {
         ctx.stroke();
     }
 
-    // Chest feather pattern (V shapes)
+    // Chest feather pattern
     ctx.strokeStyle = "rgba(0, 255, 136," + (0.2 + glowIntensity * 0.15) + ")";
     ctx.lineWidth = 1 * scale;
     ctx.shadowBlur = 5 * scale;
@@ -168,11 +164,9 @@ function drawOwlEyes() {
     var pupilRadius = 10 * scale;
     var baseGlow = 0.6 + glowIntensity * 0.4;
 
-    // Draw each eye
     for (var side = -1; side <= 1; side += 2) {
         var ex = side * eyeSpacing;
 
-        // Outer ring (neon glow)
         ctx.beginPath();
         ctx.arc(ex, eyeY, eyeRadius + 5 * scale, 0, Math.PI * 2);
         ctx.strokeStyle = "rgba(123, 47, 247," + (0.4 * baseGlow) + ")";
@@ -181,13 +175,9 @@ function drawOwlEyes() {
         ctx.shadowBlur = 20 * scale * baseGlow;
         ctx.stroke();
 
-        // Eye background
         ctx.beginPath();
         ctx.arc(ex, eyeY, eyeRadius, 0, Math.PI * 2);
-        var eyeGrad = ctx.createRadialGradient(
-            ex, eyeY, 0,
-            ex, eyeY, eyeRadius
-        );
+        var eyeGrad = ctx.createRadialGradient(ex, eyeY, 0, ex, eyeY, eyeRadius);
         eyeGrad.addColorStop(0, "rgba(255, 200, 0," + (0.9 * baseGlow) + ")");
         eyeGrad.addColorStop(0.6, "rgba(255, 120, 0," + (0.7 * baseGlow) + ")");
         eyeGrad.addColorStop(1, "rgba(123, 47, 247," + (0.3 * baseGlow) + ")");
@@ -196,21 +186,17 @@ function drawOwlEyes() {
         ctx.shadowBlur = 25 * scale * baseGlow;
         ctx.fill();
 
-        // Iris pattern
         ctx.strokeStyle = "rgba(255, 180, 0," + (0.3 * baseGlow) + ")";
         ctx.lineWidth = 0.5 * scale;
         ctx.shadowBlur = 0;
         for (var r = 0; r < 12; r++) {
             var ra = (r * Math.PI * 2) / 12 + time * 0.3;
             ctx.beginPath();
-            ctx.moveTo(ex + Math.cos(ra) * pupilRadius * 1.2,
-                       eyeY + Math.sin(ra) * pupilRadius * 1.2);
-            ctx.lineTo(ex + Math.cos(ra) * eyeRadius * 0.85,
-                       eyeY + Math.sin(ra) * eyeRadius * 0.85);
+            ctx.moveTo(ex + Math.cos(ra) * pupilRadius * 1.2, eyeY + Math.sin(ra) * pupilRadius * 1.2);
+            ctx.lineTo(ex + Math.cos(ra) * eyeRadius * 0.85, eyeY + Math.sin(ra) * eyeRadius * 0.85);
             ctx.stroke();
         }
 
-        // Pupil
         var pupilScale = 1 - glowIntensity * 0.3;
         ctx.beginPath();
         ctx.arc(ex, eyeY, pupilRadius * pupilScale, 0, Math.PI * 2);
@@ -218,13 +204,11 @@ function drawOwlEyes() {
         ctx.shadowBlur = 0;
         ctx.fill();
 
-        // Pupil highlight
         ctx.beginPath();
         ctx.arc(ex - 4 * scale, eyeY - 4 * scale, 4 * scale, 0, Math.PI * 2);
         ctx.fillStyle = "rgba(255,255,255," + (0.7 + glowIntensity * 0.3) + ")";
         ctx.fill();
 
-        // Glowing ring when touched
         if (glowIntensity > 0.3) {
             ctx.beginPath();
             ctx.arc(ex, eyeY, eyeRadius + 10 * scale * glowIntensity, 0, Math.PI * 2);
@@ -280,7 +264,6 @@ function drawWings() {
         ctx.quadraticCurveTo(cpX, cpY, endX, endY);
         ctx.stroke();
 
-        // Feather lines
         for (var f = 0; f < 5; f++) {
             var t = 0.3 + f * 0.15;
             var fx = startX * (1 - t) * (1 - t) + 2 * cpX * (1 - t) * t + endX * t * t;
@@ -306,8 +289,7 @@ function spawnParticles(x, y, count) {
         var speed = Math.random() * 2 + 0.5;
         var colors = ["#7b2ff7", "#00c6ff", "#ffcc00", "#00ff88", "#ff44aa"];
         particles.push({
-            x: x,
-            y: y,
+            x: x, y: y,
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed,
             life: 1,
@@ -323,11 +305,9 @@ function updateParticles() {
         var p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.vy -= 0.01; // float up
+        p.vy -= 0.01;
         p.life -= p.decay;
-        if (p.life <= 0) {
-            particles.splice(i, 1);
-        }
+        if (p.life <= 0) particles.splice(i, 1);
     }
 }
 
@@ -346,7 +326,6 @@ function drawParticles() {
     ctx.shadowBlur = 0;
 }
 
-// Ambient particles floating around owl
 function spawnAmbientParticles() {
     if (particles.length > 150) return;
     var angle = Math.random() * Math.PI * 2;
@@ -367,13 +346,7 @@ function spawnAmbientParticles() {
 // TOUCH RIPPLES
 // =============================
 function addRipple(x, y) {
-    touchRipples.push({
-        x: x,
-        y: y,
-        r: 0,
-        maxR: 80 * scale,
-        alpha: 1
-    });
+    touchRipples.push({ x: x, y: y, r: 0, maxR: 80 * scale, alpha: 1 });
 }
 
 function updateRipples() {
@@ -381,9 +354,7 @@ function updateRipples() {
         var r = touchRipples[i];
         r.r += 2;
         r.alpha -= 0.02;
-        if (r.alpha <= 0) {
-            touchRipples.splice(i, 1);
-        }
+        if (r.alpha <= 0) touchRipples.splice(i, 1);
     }
 }
 
@@ -402,7 +373,7 @@ function drawRipples() {
 }
 
 // =============================
-// FRACTAL CIRCLES (behind owl)
+// FRACTAL RINGS
 // =============================
 function drawFractalRings() {
     ctx.save();
@@ -427,7 +398,6 @@ function drawFractalRings() {
         ctx.closePath();
         ctx.stroke();
 
-        // Dots on ring
         for (var d = 0; d < 8; d++) {
             var da = (d * Math.PI * 2) / 8 + rotation;
             var dx = Math.cos(da) * r;
@@ -470,15 +440,11 @@ window.addEventListener("resize", resize);
 // =============================
 function animate() {
     time += 0.016;
-
-    // Smooth glow interpolation
     glowIntensity += (glowTarget - glowIntensity) * 0.08;
 
-    // Clear
     ctx.fillStyle = "rgba(5, 5, 16, 0.3)";
     ctx.fillRect(0, 0, W, H);
 
-    // Draw layers
     drawStars();
     drawNebula();
     drawFractalRings();
@@ -486,12 +452,10 @@ function animate() {
     drawWings();
     drawOwlEyes();
 
-    // Particles
     spawnAmbientParticles();
     updateParticles();
     drawParticles();
 
-    // Ripples
     updateRipples();
     drawRipples();
 
@@ -502,7 +466,6 @@ function animate() {
 // INIT
 // =============================
 resize();
-// Clear fully on first frame
 ctx.fillStyle = "#050510";
 ctx.fillRect(0, 0, W, H);
 animate();
