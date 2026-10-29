@@ -1,0 +1,25 @@
+LOGIN COM GOOGLE - FIREBASE
+
+O código do app foi ajustado para usar o plugin @capacitor-firebase/authentication junto com o Firebase JavaScript SDK.
+
+O que foi corrigido no projeto:
+1. capacitor.config.json agora usa skipNativeAuth=true.
+2. native-auth.js agora pede o token do Google no Android.
+3. firebase.js usa esse token para entrar no Firebase Auth.
+4. O app mantém pacote Android: com.felipe.jogoeducativo.
+
+Se o APK instalar mas o login Google der erro 10 / DEVELOPER_ERROR:
+Isso não é erro de código. É falta de SHA-1/SHA-256 no Firebase Console.
+
+Como resolver:
+1. Rode o arquivo MOSTRAR_SHA1_FIREBASE.bat.
+2. Copie o SHA-1 e o SHA-256 que aparecerem.
+3. Abra Firebase Console > Projeto jogo-educativo-2-0-408bb.
+4. Vá em Configurações do projeto > Seus apps > Android.
+5. Confira se o pacote é com.felipe.jogoeducativo.
+6. Adicione o SHA-1 e o SHA-256.
+7. Baixe o novo google-services.json.
+8. Substitua o arquivo em android/app/google-services.json.
+9. Gere o APK novamente.
+
+Também confirme em Firebase Authentication > Sign-in method se o provedor Google está ativado.

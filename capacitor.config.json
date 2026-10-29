@@ -1,0 +1,13 @@
+{
+  "appId": "com.felipe.jogoeducativo",
+  "appName": "Jogo Educativo",
+  "webDir": "www",
+  "plugins": {
+    "FirebaseAuthentication": {
+      "skipNativeAuth": true,
+      "providers": [
+        "google.com"
+      ]
+    }
+  }
+}

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Jogo Educativo - Felipe Souza de Melo</title>
+    <link rel="stylesheet" href="style.css?v=31">
+</head>
+<body data-theme="classico">
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <header class="app-header">
+        <div class="brand-row">
+            <div>
+                <p class="eyebrow">Criado por Felipe Souza de Melo</p>
+                <h1>🎮 Jogo Educativo</h1>
+            </div>
+            <button class="icon-btn" type="button" onclick="trocarAba('perfil')" aria-label="Abrir perfil">
+                <span id="miniAvatar">🧑‍🚀</span>
+            </button>
+        </div>
+
+        <div id="areaLogin"></div>
+
+        <div class="topo compacto">
+            <span>⭐ <b id="nivel">1</b></span>
+            <span>🪙 <b id="moedas">0</b></span>
+            <span>❤️ <b id="vidas">3</b></span>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- INÍCIO -->
+        <section id="inicio" class="aba ativa">
+            <div class="hero-card">
+                <div id="avatarHome" class="avatar-grande">🧑‍🚀</div>
+                <p class="eyebrow">Aprenda brincando</p>
+                <h2>Monte seu personagem, jogue e desbloqueie recompensas.</h2>
+                <p class="muted">Ganhe moedas, compre acessórios, troque temas e deixe o jogo do seu jeito.</p>
+
+                <div class="xp-area">
+                    <div class="xp-head">
+                        <span>XP</span>
+                        <strong><span id="xp">0</span>/<span id="xpProximo">100</span></strong>
+                    </div>
+                    <div class="barra"><div id="barraXp" class="barra-preenchida"></div></div>
+                </div>
+
+                <button class="btn-principal" type="button" onclick="trocarAba('jogar')">▶ Jogar agora</button>
+            </div>
+
+            <div class="grid-atalhos">
+                <button class="mini-card" type="button" onclick="trocarAba('avatar')">👤<strong>Avatar</strong><small>Crie seu visual</small></button>
+                <button class="mini-card" type="button" onclick="trocarAba('loja')">🛒<strong>Loja</strong><small>Compre itens</small></button>
+                <button class="mini-card" type="button" onclick="trocarAba('missoes')">🎯<strong>Missões</strong><small>Ganhe moedas</small></button>
+                <button class="mini-card" type="button" onclick="trocarAba('perfil')">🏆<strong>Perfil</strong><small>Veja sua evolução</small></button>
+            </div>
+        </section>
+
+        <!-- JOGAR -->
+        <section id="jogar" class="aba">
+            <div class="card wide">
+                <p class="eyebrow">Escolha o modo</p>
+                <h2>🎮 Como você quer jogar?</h2>
+
+                <div class="niveis-clean">
+                    <button type="button" onclick="selecionarNivel('pre')">👶 Pré</button>
+                    <button type="button" onclick="selecionarNivel('facil')">🟢 Fácil</button>
+                    <button type="button" onclick="selecionarNivel('medio')">🟡 Médio</button>
+                    <button type="button" onclick="selecionarNivel('dificil')">🔴 Difícil</button>
+                </div>
+                <p id="nivelAtual" class="muted"></p>
+
+                <div class="cards-modo">
+                    <button type="button" onclick="trocarAba('portugues')">📚<strong>Português</strong><small>Digite a palavra correta</small></button>
+                    <button type="button" onclick="trocarAba('ingles')">🌎<strong>Inglês</strong><small>Traduza para português</small></button>
+                    <button type="button" onclick="trocarAba('montar')">🧩<strong>Montar palavra</strong><small>Organize as letras</small></button>
+                </div>
+
+                <h3 style="margin-top: 24px; margin-bottom: 12px;">👥 Modo Multiplayer</h3>
+                <div class="cards-modo">
+                    <button type="button" onclick="iniciarMultiplayer('portugues')">🏆<strong>2 Jogadores</strong><small>Desafio com amigos</small></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- INGLÊS -->
+        <section id="ingles" class="aba">
+            <div class="hud-jogo"><span>❤️ <b id="vidasJogoEN">3</b></span><span>🔥 <b id="sequenciaEN">0</b></span></div>
+            <div class="card card-jogo">
+                <div id="emojiEN" class="emoji">🐱</div>
+                <p class="muted">Traduza para português</p>
+                <h3 id="palavraEN">CAT</h3>
+                <input id="respostaEN" type="text" placeholder="Digite a resposta" autocomplete="off">
+                <button class="btn-principal" type="button" onclick="verificarEN()">Responder</button>
+                <p id="feedbackEN" class="feedback"></p>
+            </div>
+        </section>
+
+        <!-- PORTUGUÊS -->
+        <section id="portugues" class="aba">
+            <div class="hud-jogo"><span>❤️ <b id="vidasJogoPT">3</b></span><span>🔥 <b id="sequenciaPT">0</b></span></div>
+            <div class="card card-jogo">
+                <div id="emoji" class="emoji">🐱</div>
+                <p class="muted">Digite a palavra em português</p>
+                <input id="resposta" type="text" placeholder="Digite a palavra" autocomplete="off">
+                <button class="btn-principal" type="button" onclick="verificarPT()">Responder</button>
+                <p id="feedback" class="feedback"></p>
+            </div>
+        </section>
+
+        <!-- MONTAR -->
+        <section id="montar" class="aba">
+            <div class="hud-jogo"><span>❤️ <b id="vidasJogoMontar">3</b></span><span>🔥 <b id="sequenciaMontar">0</b></span></div>
+            <div class="card card-jogo">
+                <h2>🧩 Monte a palavra</h2>
+                <div id="emojiMontar" class="emoji">🐱</div>
+                <div id="respostaMontada" class="resposta-montada" ondragover="dragoverArea(event)" ondragleave="dragleaveArea(event)" ondrop="dropLetra(event)"></div>
+                <p class="dica-montar">Arraste as letras para cá ou toque nelas para montar a palavra.</p>
+                <div id="letras" class="letras"></div>
+                <div class="row-actions">
+                    <button class="btn-principal" type="button" onclick="verificarMontagem()">Verificar</button>
+                    <button class="btn-secundario" type="button" onclick="desfazerLetra()">Desfazer</button>
+                    <button class="btn-secundario" type="button" onclick="limpar()">Limpar</button>
+                </div>
+                <p id="feedbackMontar" class="feedback"></p>
+            </div>
+        </section>
+
+        <!-- LOJA -->
+        <section id="loja" class="aba">
+            <div class="card wide">
+                <p class="eyebrow">Personalização</p>
+                <h2>🛒 Loja</h2>
+                <p class="muted">Compre personagens, roupas, acessórios, temas e poderes.</p>
+
+                <div class="topo-loja">
+                    <span>🪙 <b id="moedasLoja">0</b> moedas</span>
+                    <span>❤️ <b id="vidasLoja">3</b> vidas</span>
+                </div>
+
+                <div class="tabs-loja">
+                    <button type="button" onclick="filtrarLoja('todos')">Tudo</button>
+                    <button type="button" onclick="filtrarLoja('base')">Bases</button>
+                    <button type="button" onclick="filtrarLoja('cabelo')">Cabelos</button>
+                    <button type="button" onclick="filtrarLoja('roupa')">Roupas</button>
+                    <button type="button" onclick="filtrarLoja('acessorio')">Acessórios</button>
+                    <button type="button" onclick="filtrarLoja('tema')">Temas</button>
+                    <button type="button" onclick="filtrarLoja('poder')">Poderes</button>
+                </div>
+
+                <div id="listaLoja" class="grid-loja"></div>
+            </div>
+        </section>
+
+        <!-- AVATAR -->
+        <section id="avatar" class="aba">
+            <div class="card wide">
+                <p class="eyebrow">Criação de personagem</p>
+                <h2>👤 Meu Avatar</h2>
+
+                <div class="avatar-editor">
+                    <div class="preview-box">
+                        <div id="avatarCriado" class="avatar-montado">🧑‍🚀</div>
+                        <p id="descricaoAvatar" class="muted"></p>
+                        <button class="btn-principal" type="button" onclick="salvarVisualAvatar()">💾 Salvar visual</button>
+                    </div>
+
+                    <div class="editor-opcoes">
+                        <h3>Base</h3>
+                        <div id="opcoesBase" class="chips"></div>
+
+                        <h3>Pele</h3>
+                        <div id="opcoesPele" class="chips"></div>
+
+                        <h3>Cabelo</h3>
+                        <div id="opcoesCabelo" class="chips"></div>
+
+                        <h3>Roupa</h3>
+                        <div id="opcoesRoupa" class="chips"></div>
+
+                        <h3>Acessório</h3>
+                        <div id="opcoesAcessorio" class="chips"></div>
+
+                        <h3>Companheiro</h3>
+                        <div id="opcoesCompanheiro" class="chips"></div>
+
+                        <h3>Tema</h3>
+                        <div id="opcoesTema" class="chips"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSÕES -->
+        <section id="missoes" class="aba">
+            <div class="card wide">
+                <p class="eyebrow">Recompensas</p>
+                <h2>🎯 Missões</h2>
+                <div id="listaMissoes" class="lista-missoes"></div>
+            </div>
+        </section>
+
+        <!-- PERFIL -->
+        <section id="perfil" class="aba">
+            <div class="card wide card-perfil">
+                <p class="eyebrow">Evolução</p>
+                <h2>🏆 Perfil do Jogador</h2>
+
+                <div class="perfil-grid">
+                    <div class="perfil-preview">
+                        <div id="avatarSelecionado" class="avatar-preview">🧑‍🚀</div>
+                        <p id="perfilResumo">Jogador</p>
+                        <input id="nomeJogador" type="text" placeholder="Digite seu nome" autocomplete="off">
+                        <button class="btn-principal" type="button" onclick="salvarPerfil()">💾 Salvar Perfil</button>
+                        <p id="nomeSalvo"></p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div><span>⭐ Nível</span><strong id="statNivel">1</strong></div>
+                        <div><span>🏆 XP</span><strong id="statXp">0</strong></div>
+                        <div><span>🪙 Moedas</span><strong id="statMoedas">0</strong></div>
+                        <div><span>❤️ Vidas</span><strong id="statVidas">3</strong></div>
+                        <div><span>🔥 Sequência</span><strong id="statSequencia">0</strong></div>
+                        <div><span>👑 Recorde</span><strong id="statRecorde">0</strong></div>
+                        <div><span>✅ Acertos</span><strong id="statAcertos">0</strong></div>
+                        <div><span>❌ Erros</span><strong id="statErros">0</strong></div>
+                    </div>
+                </div>
+
+                <h3>🏅 Conquistas</h3>
+                <div id="listaConquistas" class="conquistas"></div>
+
+                <h3>🎒 Inventário</h3>
+                <div id="resumoInventario" class="inventario-resumo"></div>
+
+                <button class="btn-perigo" type="button" onclick="resetarProgresso()">🔄 Resetar progresso</button>
+                <div class="autor-box">
+                    <h3>👨‍💻 Autoria do Projeto</h3>
+                    <p><strong>Desenvolvido por:</strong> Felipe Souza de Melo</p>
+                    <p><strong>Linguagens e tecnologias:</strong> HTML, CSS, JavaScript, Capacitor e Firebase.</p>
+                    <small>© 2026 Felipe Souza de Melo. Todos os direitos reservados.</small>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- RANKING -->
+        <section id="ranking" class="aba">
+            <div class="card wide">
+                <h2>🏆 Ranking Global</h2>
+                <ul id="listaRanking"></ul>
+            </div>
+        </section>
+
+        <!-- MULTIPLAYER 2 JOGADORES -->
+        <section id="multiplayer" class="aba">
+            <div class="card wide">
+                <p class="eyebrow">Modo Competitivo</p>
+                <h2>👥 2 Jogadores</h2>
+                <p class="muted">Desafie seu amigo em um duelo educativo!</p>
+
+                <div id="multiplayerSetup" class="multiplayer-setup">
+                    <div class="player-inputs">
+                        <input id="nomeJogador1" type="text" placeholder="Nome do Jogador 1" value="Jogador 1">
+                        <input id="nomeJogador2" type="text" placeholder="Nome do Jogador 2" value="Jogador 2">
+                    </div>
+                    <button class="btn-principal" type="button" onclick="iniciarDueloMultiplayer()">🎮 Iniciar Duelo</button>
+                </div>
+
+                <div id="multiplayerGame" style="display: none;">
+                    <div class="placar-multiplayer">
+                        <div class="player-score">
+                            <strong id="mp1Nome">Jogador 1</strong>
+                            <span id="mp1Score">0</span>
+                        </div>
+                        <div class="versus">VS</div>
+                        <div class="player-score">
+                            <span id="mp2Score">0</span>
+                            <strong id="mp2Nome">Jogador 2</strong>
+                        </div>
+                    </div>
+
+                    <div class="card card-jogo">
+                        <h3 id="mpTurno">Turno do Jogador 1</h3>
+                        <div id="mpEmoji" class="emoji">🐱</div>
+                        <p class="muted">Digite a palavra em português</p>
+                        <input id="mpResposta" type="text" placeholder="Digite a palavra" autocomplete="off">
+                        <button class="btn-principal" type="button" onclick="verificarMultiplayer()">Responder</button>
+                        <p id="mpFeedback" class="feedback"></p>
+                    </div>
+
+                    <button class="btn-secundario" type="button" onclick="finalizarMultiplayer()">Voltar</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="app-footer">
+        <strong>Jogo Educativo</strong>
+        <span>Desenvolvido por Felipe Souza de Melo</span>
+        <small>HTML • CSS • JavaScript • Capacitor • Firebase</small>
+    </footer>
+
+    <nav class="bottom-nav" aria-label="Menu principal">
+        <button type="button" onclick="trocarAba('inicio')">🏠<span>Início</span></button>
+        <button type="button" onclick="trocarAba('jogar')">🎮<span>Jogar</span></button>
+        <button type="button" onclick="trocarAba('loja')">🛒<span>Loja</span></button>
+        <button type="button" onclick="trocarAba('avatar')">👤<span>Avatar</span></button>
+        <button type="button" onclick="trocarAba('perfil')">🏆<span>Perfil</span></button>
+    </nav>
+
+    <audio id="somAcerto" src="https://www.soundjay.com/buttons/sounds/button-4.mp3"></audio>
+    <audio id="somErro" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+
+    <script src="./capacitor.js"></script>
+    <script src="./update-checker.js?v=31"></script>
+    <script src="native-auth.js?v=31"></script>
+    <script type="module" src="firebase.js?v=31"></script>
+    <script type="module" src="script.js?v=31"></script>
+
+</body>
+</html>

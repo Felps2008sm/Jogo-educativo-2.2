@@ -1,0 +1,38 @@
+NOVA VERSÃO DO JOGO - FELIPE SOUZA DE MELO
+
+Melhorias incluídas nesta versão:
+
+1. Autoria do projeto adicionada no jogo:
+   - Felipe Souza de Melo
+   - Tecnologias: HTML, CSS, JavaScript, Capacitor e Firebase
+
+2. Login Google/Firebase revisado:
+   - Configuração do plugin FirebaseAuthentication com skipNativeAuth=true
+   - Dependências Firebase corrigidas no Gradle
+   - Arquivo MOSTRAR_SHA1_FIREBASE.bat incluído para pegar SHA-1 e SHA-256
+
+3. Jogo de montar palavras melhorado:
+   - Agora a criança precisa arrastar a letra para cada espaço da palavra
+   - Cada espaço aceita uma letra
+   - Também dá para tocar na letra para preencher o próximo espaço, ajudando em celulares onde arrastar pode ser mais difícil
+   - Botão Desfazer remove a última letra
+   - Tocar em um espaço preenchido remove aquela letra
+
+4. Banco de palavras aumentado:
+   - Pré: 30 palavras
+   - Fácil: 30 palavras
+   - Médio: 30 palavras
+   - Difícil: 30 palavras
+
+COMO GERAR O APK:
+
+1. Abra esta pasta no computador.
+2. Clique duas vezes em GERAR_APK_CORRIGIDO.bat
+3. Quando finalizar, o APK estará em:
+   android\app\build\outputs\apk\debug\app-debug.apk
+
+Se o login Google abrir mas não entrar, rode:
+MOSTRAR_SHA1_FIREBASE.bat
+
+Depois cadastre a SHA-1 e SHA-256 no Firebase Console, baixe o google-services.json atualizado e coloque em:
+android\app\google-services.json
